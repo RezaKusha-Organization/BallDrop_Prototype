@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _speed = 500;
     [SerializeField] private Rigidbody playerRb;
     [SerializeField] private float powerupStrength = 15;
+    [SerializeField] private GameObject powerupIndicator;
     private CameraRotate _cameraRotate;
     private bool hasPowerup = false;
     
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         float forwardInput = Input.GetAxis("Vertical");
         playerRb.AddForce(_cameraRotate.transform.forward * _speed * forwardInput * Time.deltaTime);
+        powerupIndicator.transform.position = transform.position;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Powerup")
         {
             StartCoroutine(PowerupCountdownRoutine());
+            powerupIndicator.SetActive(true);
             Destroy(other.gameObject);
             hasPowerup = true;
         }
@@ -41,13 +44,14 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(7);
         hasPowerup = false;
+        powerupIndicator.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Enemy") && hasPowerup)
         {
-            Rigidbody enemyRigidbody = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Rigidbody>();
+            Rigidbody enemyRigidbody = other.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = other.gameObject.transform.position - transform.position;
             enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
         }
