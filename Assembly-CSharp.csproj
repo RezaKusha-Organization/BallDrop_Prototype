@@ -44,10 +44,12 @@
      <Compile Include="Assets\Scripts\CameraRotate.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\SpawnManager.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Course Library" />
      <Folder Include="Assets\Course Library\Powerup Indicators" />
      <Folder Include="Assets\Course Library\Textures" />
+     <Folder Include="Assets\Prefabs" />
      <Folder Include="Assets\Course Library\Materials" />
      <Folder Include="Assets\Course Library\_Source_Files\Textures" />
      <Folder Include="Assets\Course Library\Pickups" />
